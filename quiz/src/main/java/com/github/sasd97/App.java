@@ -1,5 +1,6 @@
 package com.github.sasd97;
 
+import com.github.sasd97.Core.ServerCore;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -8,6 +9,6 @@ import org.springframework.boot.SpringApplication;
 public class App {
 
     public static void main(String[] args) {
-        SpringApplication.run(CoreServer.class, args);
+        SpringApplication.run(ServerCore.class, args);
     }
 }
