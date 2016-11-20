@@ -1,6 +1,6 @@
 package com.github.sasd97;
 
-import com.github.sasd97.Core.ServerCore;
+import com.github.sasd97.core.ServerCore;
 import org.springframework.boot.SpringApplication;
 
 /**

@@ -1,4 +1,4 @@
-package com.github.sasd97.Constants;
+package com.github.sasd97.constants;
 
 /**
  * Created by alexander on 21.11.16.

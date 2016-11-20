@@ -1,6 +1,6 @@
-package com.github.sasd97.Core;
+package com.github.sasd97.core;
 
-import com.github.sasd97.Constants.AppConstants;
+import com.github.sasd97.constants.AppConstants;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
