@@ -2,6 +2,7 @@ package com.github.sasd97.controllers;
 
 import com.github.sasd97.database.User;
 import com.github.sasd97.database.UserCrud;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +25,11 @@ public class HomeController {
     private UserCrud userCrud;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public User Add() {
+    public String Add() {
         User user = new User("Alexander", "Dadukin");
         userCrud.save(user);
-        return user;
+        Gson gson = new Gson();
+        return gson.toJson(user);
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

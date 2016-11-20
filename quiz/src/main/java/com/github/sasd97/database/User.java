@@ -1,5 +1,8 @@
 package com.github.sasd97.database;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.*;
 
 /**
@@ -12,10 +15,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long id;
+    @SerializedName("id")
+    @Expose
+    private Long id;
 
-    public String firstName;
-    public String lastName;
+    private String firstName;
+    private String lastName;
 
     protected User() {}
 
