@@ -2,7 +2,6 @@ package com.github.sasd97.controllers;
 
 import com.github.sasd97.models.UserModel;
 import com.github.sasd97.repositories.UserCrudRepository;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +28,9 @@ public class HomeController {
             produces = { MediaType.APPLICATION_JSON_VALUE },
             method = RequestMethod.GET)
     public UserModel Add() {
-        UserModel userModel = new UserModel("Alexander", "Dadukin");
+        UserModel userModel = new UserModel();
+        userModel.setFirstName("Alexander");
         userCrudRepository.save(userModel);
-        Gson gson = new Gson();
         return userModel;
     }
 

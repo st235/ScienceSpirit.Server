@@ -14,7 +14,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -60,15 +59,11 @@ public class DatabaseCore {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-
         em.setDataSource(dataSource());
         em.setPackagesToScan(AppConstants.REPOSITORIES_PACKAGE, AppConstants.MODELS_PACKAGE);
-
-
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(jpaVendorAdapter);
         em.setJpaProperties(additionalProperties());
-
         return em;
     }
 
@@ -85,9 +80,12 @@ public class DatabaseCore {
     }
 
     Properties additionalProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
-        properties.setProperty("hibernate.dialect", dialect);
-        return properties;
+        return new Properties() {
+            {
+                setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
+                setProperty("hibernate.dialect", dialect);
+                setProperty("hibernate.globally_quoted_identifiers", "true");
+            }
+        };
     }
 }
