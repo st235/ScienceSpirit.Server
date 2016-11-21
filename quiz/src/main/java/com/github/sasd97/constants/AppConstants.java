@@ -3,7 +3,7 @@ package com.github.sasd97.constants;
 /**
  * Created by alexander on 21.11.16.
  */
-public class AppConstants {
+public final class AppConstants {
 
     private AppConstants() {}
 
