@@ -1,5 +1,6 @@
-package com.github.sasd97.database;
+package com.github.sasd97.repositories;
 
+import com.github.sasd97.models.UserModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface UserCrud extends CrudRepository<User, Long> {
+public interface UserCrudRepository extends CrudRepository<UserModel, Long> {
 }

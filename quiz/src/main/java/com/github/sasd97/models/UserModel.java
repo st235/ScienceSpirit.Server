@@ -1,4 +1,4 @@
-package com.github.sasd97.database;
+package com.github.sasd97.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USER")
-public class User {
+public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,9 +22,9 @@ public class User {
     private String firstName;
     private String lastName;
 
-    protected User() {}
+    protected UserModel() {}
 
-    public User(String firstName, String lastName) {
+    public UserModel(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
