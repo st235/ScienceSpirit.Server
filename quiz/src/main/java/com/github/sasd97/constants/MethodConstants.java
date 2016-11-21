@@ -12,6 +12,6 @@ public final class MethodConstants {
         public static final String INDEX = "/home";
 
         public static final String ADD = "/add";
-        public static final String GET = "/get";
+        public static final String GET = "/{token}";
     }
 }
