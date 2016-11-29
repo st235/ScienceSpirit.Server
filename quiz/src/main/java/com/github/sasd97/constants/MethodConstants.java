@@ -7,11 +7,9 @@ public final class MethodConstants {
 
     private MethodConstants() {}
 
-    public static final class Home {
+    public static final class Registration {
 
-        public static final String INDEX = "/home";
-
-        public static final String ADD = "/add";
-        public static final String GET = "/{token}";
+        public static final String INDEX = "/register";
+        public static final String FACEBOOK = "/facebook/{token}";
     }
 }
