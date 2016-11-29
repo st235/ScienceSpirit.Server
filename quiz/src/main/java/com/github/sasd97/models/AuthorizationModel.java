@@ -1,7 +1,9 @@
 package com.github.sasd97.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "authorization")
@@ -17,7 +19,7 @@ public class AuthorizationModel {
     @Id
     @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long autorizationId;
 
     public LocalDateTime getCreationDate() {
         return creationDate;
@@ -37,11 +39,11 @@ public class AuthorizationModel {
 
 
     public Long getUserId() {
-        return userId;
+        return autorizationId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(Long autorizationId) {
+        this.autorizationId = autorizationId;
     }
 }
 
