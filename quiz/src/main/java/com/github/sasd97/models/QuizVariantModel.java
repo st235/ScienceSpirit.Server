@@ -2,15 +2,17 @@ package com.github.sasd97.models;
 
 import com.google.gson.annotations.Expose;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "answers")
-public class AnswerModel
+@Table(name = "variants")
+public class QuizVariantModel
 {
+    //TODO: добавить id базы данных
+
     @Expose
-    private int type;
+    private int type; //TODO: сделать enum`ом
 
     @Expose
     private String value;

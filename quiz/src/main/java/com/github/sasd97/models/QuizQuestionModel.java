@@ -2,78 +2,67 @@ package com.github.sasd97.models;
 
 import com.google.gson.annotations.Expose;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
-public class QuestionModel
+public class QuizQuestionModel
 {
+    //TODO: добавить id базы данных
+
+    @Expose
+    private int topicId;
+
     @Expose
     private String description;
 
     @Expose
-    public void setDescription(int description) {
-        this.type = description;
-    }
+    private QuizVariantModel rightAnswer;
 
     @Expose
-    public String getDescription()
-    {
+    private List<QuizVariantModel> variants;
+
+    public int getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-
-    @Expose
-    private AnswerModel RightAnswer;
-
-    @Expose
-    public void setRightAnswer(AnswerModel RightAnswer) {
-        this.RightAnswer = RightAnswer;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Expose
-    public AnswerModel getRightAnswer()
-    {
-        return RightAnswer;
+    public QuizVariantModel getRightAnswer() {
+        return rightAnswer;
     }
 
-    @Expose
-    private AnswerModel[] Variants = new AnswerModel[4];
-
-    public void setVariants(AnswerModel Variants[]) {
-        this.Variants = Variants;
+    public void setRightAnswer(QuizVariantModel rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 
-    public AnswerModel[] getVariants()
-    {
-        return Variants;
+    public List<QuizVariantModel> getVariants() {
+        return variants;
     }
 
-
-
-    private int TopicId;
-
-    public void setTopicId(int TopicId) {
-        this.TopicId = TopicId;
+    public void setVariants(List<QuizVariantModel> variants) {
+        this.variants = variants;
     }
-
-    public int getTopicId()
-    {
-        return TopicId;
-    }
-
 
     @Override
     public String toString() {
-        return "QuestionModel{" +
-                ", TopicId='" + TopicId + '\'' +
-                ", description='" + description + '\''  +
-                ", variants='" + Variants[0] + '\''  +
-                '\''  + Variants[1]+
-                '\''  + Variants[2]+
-                '\''  + Variants[3]+
-                ", RightAnswer='" + RightAnswer + '\'' +
+        return "QuizQuestionModel{" +
+                "topicId=" + topicId +
+                ", description='" + description + '\'' +
+                ", rightAnswer=" + rightAnswer +
+                ", variants=" + variants +
                 '}';
     }
 }
