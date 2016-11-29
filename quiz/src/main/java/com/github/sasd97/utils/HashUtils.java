@@ -12,14 +12,14 @@ public class HashUtils {
 
     private HashUtils() {}
 
-    public static String md5(String st) {
+    public static String md5(String data) {
         MessageDigest messageDigest = null;
         byte[] digest = new byte[0];
 
         try {
             messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
-            messageDigest.update(st.getBytes());
+            messageDigest.update(data.getBytes());
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
