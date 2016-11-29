@@ -32,7 +32,7 @@ public class RegistrationController {
         DeferredResult<UserModel> asyncTask = new DeferredResult<>();
 
         FacebookParseService
-                .getInstance(asyncTask)
+                .getInstance(asyncTask, userCrudRepository)
                 .execute(token);
 
         return asyncTask;

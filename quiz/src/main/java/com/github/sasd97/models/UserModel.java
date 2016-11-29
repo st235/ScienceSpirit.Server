@@ -16,7 +16,7 @@ public class UserModel {
     @Id
     @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long userId;
 
     @Expose
     private String firstName;
@@ -25,6 +25,7 @@ public class UserModel {
     private String lastName;
 
     @Expose
+    @Column(unique = true)
     private String socialId;
 
     @Expose
@@ -62,7 +63,7 @@ public class UserModel {
     @Override
     public String toString() {
         return "UserModel{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", socialId='" + socialId + '\'' +

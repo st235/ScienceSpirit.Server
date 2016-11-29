@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="quiz:main" external.linked.project.path="$MODULE_DIR$/../../quiz" external.root.project.path="$MODULE_DIR$/../../quiz" external.system.id="GRADLE" external.system.module.group="com.github.sasd97" external.system.module.type="sourceSet" external.system.module.version="0.0.2" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/../../quiz/src/main/java/com/github/sasd97/core/DatabaseCore.java</file>
+          <file>file://$MODULE_DIR$/../../quiz/src/main/java/com/github/sasd97/core/ServerCore.java</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../quiz/build/classes/main" />
     <exclude-output />

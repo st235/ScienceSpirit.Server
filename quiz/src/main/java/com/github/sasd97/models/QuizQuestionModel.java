@@ -2,15 +2,17 @@ package com.github.sasd97.models;
 
 import com.google.gson.annotations.Expose;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "questions")
 public class QuizQuestionModel
 {
-    //TODO: добавить id базы данных
+    @Id
+    @Expose
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long questionId;
 
     @Expose
     private int topicId;
@@ -19,9 +21,11 @@ public class QuizQuestionModel
     private String description;
 
     @Expose
+    @OneToOne
     private QuizVariantModel rightAnswer;
 
     @Expose
+    @OneToMany
     private List<QuizVariantModel> variants;
 
     public int getTopicId() {

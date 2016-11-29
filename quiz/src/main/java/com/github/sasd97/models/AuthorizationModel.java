@@ -9,17 +9,21 @@ import java.time.LocalDateTime;
 @Table(name = "authorization")
 public class AuthorizationModel {
 
-    @Expose
-    @Column(nullable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
-
-    @Expose
-    private String token;
-
     @Id
     @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long autorizationId;
+    private Long authorizationId;
+
+    @ManyToOne
+    private UserModel user;
+
+    @Expose
+    @Column(nullable = false)
+    private String token;
+
+    @Expose
+    @Column(nullable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     public LocalDateTime getCreationDate() {
         return creationDate;
@@ -39,11 +43,37 @@ public class AuthorizationModel {
 
 
     public Long getUserId() {
-        return autorizationId;
+        return authorizationId;
     }
 
     public void setUserId(Long autorizationId) {
-        this.autorizationId = autorizationId;
+        this.authorizationId = autorizationId;
+    }
+
+    public Long getAuthorizationId() {
+        return authorizationId;
+    }
+
+    public void setAuthorizationId(Long authorizationId) {
+        this.authorizationId = authorizationId;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthorizationModel{" +
+                "authorizationId=" + authorizationId +
+                ", user=" + user +
+                ", token='" + token + '\'' +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }
 

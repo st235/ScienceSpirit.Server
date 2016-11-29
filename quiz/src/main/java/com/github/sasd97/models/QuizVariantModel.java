@@ -2,14 +2,16 @@ package com.github.sasd97.models;
 
 import com.google.gson.annotations.Expose;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "variants")
 public class QuizVariantModel
 {
-    //TODO: добавить id базы данных
+    @Id
+    @Expose
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long variantId;
 
     @Expose
     private int type; //TODO: сделать enum`ом
