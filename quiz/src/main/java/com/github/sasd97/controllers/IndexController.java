@@ -20,7 +20,7 @@ import static com.github.sasd97.constants.MethodConstants.Base.ERROR;
 public class IndexController implements ErrorController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(NotFoundError.class)
     public ErrorResponseModel notFoundError(HttpServletRequest req, Exception ex) {
         NotFoundError error = ((NotFoundError) ex);
         return new ErrorResponseModel(error.getCode(), error.getDescription(), req.getRequestURL().toString());
