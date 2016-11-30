@@ -1,10 +1,12 @@
 package com.github.sasd97.services;
 
+import com.github.sasd97.errors.NotFoundError;
 import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.models.UserModel;
+import com.github.sasd97.models.reponse.BaseResponseModel;
+import com.github.sasd97.models.reponse.ErrorResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
-import com.github.sasd97.utils.HashUtils;
 import com.github.sasd97.utils.RequestUtils;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -27,12 +29,12 @@ public class FacebookParseService implements Callback<JsonNode> {
     private UserRepository userRepository;
     private AuthorizationRepository authorizationRepository;
 
-    private DeferredResult<UserModel> result;
+    private DeferredResult<BaseResponseModel<?>> result;
     private static FacebookParseService facebookParseService;
 
     private FacebookParseService() {}
 
-    public static FacebookParseService getInstance(@NotNull DeferredResult<UserModel> result,
+    public static FacebookParseService getInstance(@NotNull DeferredResult<BaseResponseModel<?>> result,
                                                    @NotNull UserRepository userRepository,
                                                    @NotNull AuthorizationRepository authorizationRepository) {
         if (facebookParseService == null) {
@@ -53,34 +55,39 @@ public class FacebookParseService implements Callback<JsonNode> {
     public void completed(HttpResponse<JsonNode> response) {
         try {
             String socialId = response.getBody().getObject().getString("id");
-            System.out.println(socialId);
-
             UserModel findModel = findUser(socialId);
 
             if (findModel != null) {
-                result.setResult(findModel);
+                setAccessToken(findModel);
+                result.setResult(
+                        new BaseResponseModel<>(findModel).success()
+                );
                 return;
             }
 
-            result.setResult(createUser(socialId));
+            result.setResult(
+                    new BaseResponseModel<>(createUser(socialId)).success()
+            );
         } catch (JSONException e) {
             e.printStackTrace();
-            result.setErrorResult("No id field");
+            result.setErrorResult(new NotFoundError());
         }
     }
 
     @Override
     public void failed(UnirestException e) {
         e.printStackTrace();
-        result.setErrorResult("Error");
+        result.setErrorResult(new NotFoundError());
     }
 
     @Override
     public void cancelled() {
-        result.setErrorResult("cancelled");
+        result.setErrorResult(
+                new ErrorResponseModel(401, "Not allowed")
+        );
     }
 
-    private void setAsyncHandler(@NotNull DeferredResult<UserModel> result) {
+    private void setAsyncHandler(@NotNull DeferredResult<BaseResponseModel<?>> result) {
         this.result = result;
     }
 
@@ -90,8 +97,11 @@ public class FacebookParseService implements Callback<JsonNode> {
         this.authorizationRepository = authorizationRepository;
     }
 
-    private AuthorizationModel findAccessToken(@NotNull Long userId) {
-        return null; //TODO: add this field
+    private void setAccessToken(@NotNull UserModel user) {
+        AuthorizationModel authorizationModel = new AuthorizationModel(user);
+        authorizationModel.setToken(user.getSocialId());
+        authorizationRepository.save(authorizationModel);
+        user.setAccessToken(authorizationModel.getToken());
     }
 
     private UserModel findUser(@NotNull String socialId) {
@@ -102,13 +112,11 @@ public class FacebookParseService implements Callback<JsonNode> {
     private UserModel createUser(@NotNull String socialId) {
         UserModel userModel = new UserModel();
         userModel.setSocialId(socialId);
-        System.out.println("Hello world#12");
 
         userRepository.save(userModel);
-        System.out.println("Hello world");
 
         AuthorizationModel authorizationModel = new AuthorizationModel(userModel);
-        authorizationModel.setToken(HashUtils.md5(socialId));
+        authorizationModel.setToken(socialId);
         authorizationRepository.save(authorizationModel);
 
         userModel.setAccessToken(authorizationModel.getToken());

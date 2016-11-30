@@ -1,9 +1,10 @@
 package com.github.sasd97.models;
 
+import com.github.sasd97.utils.DateUtils;
+import com.github.sasd97.utils.HashUtils;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "authorization")
@@ -23,7 +24,7 @@ public class AuthorizationModel {
 
     @Expose
     @Column(nullable = false)
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private long creationDate = DateUtils.timestamp();
 
     public AuthorizationModel() {}
 
@@ -32,11 +33,11 @@ public class AuthorizationModel {
     }
 
 
-    public LocalDateTime getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -44,8 +45,8 @@ public class AuthorizationModel {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setToken(String data) {
+        this.token = HashUtils.md5(HashUtils.randomData(data));
     }
 
 

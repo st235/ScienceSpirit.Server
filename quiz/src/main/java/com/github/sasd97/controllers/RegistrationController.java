@@ -1,6 +1,6 @@
 package com.github.sasd97.controllers;
 
-import com.github.sasd97.models.UserModel;
+import com.github.sasd97.models.reponse.BaseResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
 import com.github.sasd97.services.FacebookParseService;
@@ -36,8 +36,8 @@ public class RegistrationController {
     @RequestMapping(value = FACEBOOK,
             produces = { MediaType.APPLICATION_JSON_VALUE },
             method = RequestMethod.GET)
-    public DeferredResult<UserModel> Get(@PathVariable("token") String token) {
-        DeferredResult<UserModel> asyncTask = new DeferredResult<>();
+    public DeferredResult<BaseResponseModel<?>> Get(@PathVariable("token") String token) {
+        DeferredResult<BaseResponseModel<?>> asyncTask = new DeferredResult<>();
 
         FacebookParseService
                 .getInstance(asyncTask, userRepository, authorizationRepository)

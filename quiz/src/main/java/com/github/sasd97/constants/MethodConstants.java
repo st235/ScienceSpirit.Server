@@ -7,6 +7,11 @@ public final class MethodConstants {
 
     private MethodConstants() {}
 
+    public static final class Base {
+
+        public static final String ERROR = "/error";
+    }
+
     public static final class Registration {
 
         public static final String INDEX = "/register";

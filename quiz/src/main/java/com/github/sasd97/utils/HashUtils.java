@@ -1,5 +1,6 @@
 package com.github.sasd97.utils;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -12,7 +13,11 @@ public class HashUtils {
 
     private HashUtils() {}
 
-    public static String md5(String data) {
+    private static final String[] keystore = new String[] {
+            "hello,woRld", "queen", "i_ll_be_black"
+    };
+
+    public static String md5(@NotNull String data) {
         MessageDigest messageDigest = null;
         byte[] digest = new byte[0];
 
@@ -33,5 +38,13 @@ public class HashUtils {
         }
 
         return md5Hex;
+    }
+
+    public static String randomData(@NotNull String data) {
+        return String.format("%s-%s-%d-%s",
+                data,
+                data.toLowerCase(),
+                DateUtils.timestamp(),
+                keystore[(int)(Math.random() * keystore.length)]);
     }
 }
