@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public interface UserCrudRepository extends CrudRepository<UserModel, Long> {
+public interface UserRepository extends CrudRepository<UserModel, Long> {
 
     @Modifying
     @Query("select s from UserModel s where s.socialId like :socialId")

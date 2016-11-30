@@ -32,6 +32,13 @@ public class UserModel {
     @Column(nullable = false)
     private LocalDateTime registrationDate = LocalDateTime.now();
 
+    @Transient
+    private String accessToken;
+
+    public Long getUserId() {
+        return userId;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -58,6 +65,14 @@ public class UserModel {
 
     public LocalDateTime getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     @Override

@@ -25,6 +25,13 @@ public class AuthorizationModel {
     @Column(nullable = false)
     private LocalDateTime creationDate = LocalDateTime.now();
 
+    public AuthorizationModel() {}
+
+    public AuthorizationModel(UserModel user) {
+        this.user = user;
+    }
+
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
@@ -46,8 +53,8 @@ public class AuthorizationModel {
         return authorizationId;
     }
 
-    public void setUserId(Long autorizationId) {
-        this.authorizationId = autorizationId;
+    public void setUserId(Long authorizationId) {
+        this.authorizationId = authorizationId;
     }
 
     public Long getAuthorizationId() {

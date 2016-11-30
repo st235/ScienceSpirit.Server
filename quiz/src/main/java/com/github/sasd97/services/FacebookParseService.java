@@ -1,7 +1,10 @@
 package com.github.sasd97.services;
 
+import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.models.UserModel;
-import com.github.sasd97.repositories.UserCrudRepository;
+import com.github.sasd97.repositories.AuthorizationRepository;
+import com.github.sasd97.repositories.UserRepository;
+import com.github.sasd97.utils.HashUtils;
 import com.github.sasd97.utils.RequestUtils;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -21,7 +24,8 @@ import java.util.List;
 @Service
 public class FacebookParseService implements Callback<JsonNode> {
 
-    private UserCrudRepository userCrudRepository;
+    private UserRepository userRepository;
+    private AuthorizationRepository authorizationRepository;
 
     private DeferredResult<UserModel> result;
     private static FacebookParseService facebookParseService;
@@ -29,22 +33,16 @@ public class FacebookParseService implements Callback<JsonNode> {
     private FacebookParseService() {}
 
     public static FacebookParseService getInstance(@NotNull DeferredResult<UserModel> result,
-                                                   @NotNull UserCrudRepository userCrudRepository) {
+                                                   @NotNull UserRepository userRepository,
+                                                   @NotNull AuthorizationRepository authorizationRepository) {
         if (facebookParseService == null) {
             facebookParseService = new FacebookParseService();
         }
 
         facebookParseService.setAsyncHandler(result);
-        facebookParseService.setUserRepository(userCrudRepository);
+        facebookParseService.setRepositories(userRepository, authorizationRepository);
+
         return facebookParseService;
-    }
-
-    private void setAsyncHandler(@NotNull DeferredResult<UserModel> result) {
-        this.result = result;
-    }
-
-    private void setUserRepository(UserCrudRepository userCrudRepository) {
-        this.userCrudRepository = userCrudRepository;
     }
 
     public void execute(String token) {
@@ -55,6 +53,8 @@ public class FacebookParseService implements Callback<JsonNode> {
     public void completed(HttpResponse<JsonNode> response) {
         try {
             String socialId = response.getBody().getObject().getString("id");
+            System.out.println(socialId);
+
             UserModel findModel = findUser(socialId);
 
             if (findModel != null) {
@@ -62,10 +62,7 @@ public class FacebookParseService implements Callback<JsonNode> {
                 return;
             }
 
-            UserModel userModel = new UserModel();
-            userModel.setSocialId(socialId);
-            userCrudRepository.save(userModel);
-            result.setResult(userModel);
+            result.setResult(createUser(socialId));
         } catch (JSONException e) {
             e.printStackTrace();
             result.setErrorResult("No id field");
@@ -83,8 +80,38 @@ public class FacebookParseService implements Callback<JsonNode> {
         result.setErrorResult("cancelled");
     }
 
+    private void setAsyncHandler(@NotNull DeferredResult<UserModel> result) {
+        this.result = result;
+    }
+
+    private void setRepositories(UserRepository userRepository,
+                                 AuthorizationRepository authorizationRepository) {
+        this.userRepository = userRepository;
+        this.authorizationRepository = authorizationRepository;
+    }
+
+    private AuthorizationModel findAccessToken(@NotNull Long userId) {
+        return null; //TODO: add this field
+    }
+
     private UserModel findUser(@NotNull String socialId) {
-        List<UserModel> list = userCrudRepository.findByUserBySocialId(socialId);
-        return list.get(0);
+        List<UserModel> list = userRepository.findByUserBySocialId(socialId);
+        return list.size() == 0 ? null : list.get(0);
+    }
+
+    private UserModel createUser(@NotNull String socialId) {
+        UserModel userModel = new UserModel();
+        userModel.setSocialId(socialId);
+        System.out.println("Hello world#12");
+
+        userRepository.save(userModel);
+        System.out.println("Hello world");
+
+        AuthorizationModel authorizationModel = new AuthorizationModel(userModel);
+        authorizationModel.setToken(HashUtils.md5(socialId));
+        authorizationRepository.save(authorizationModel);
+
+        userModel.setAccessToken(authorizationModel.getToken());
+        return userModel;
     }
 }

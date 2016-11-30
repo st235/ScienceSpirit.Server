@@ -1,7 +1,8 @@
 package com.github.sasd97.controllers;
 
 import com.github.sasd97.models.UserModel;
-import com.github.sasd97.repositories.UserCrudRepository;
+import com.github.sasd97.repositories.AuthorizationRepository;
+import com.github.sasd97.repositories.UserRepository;
 import com.github.sasd97.services.FacebookParseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,8 +23,15 @@ import static com.github.sasd97.constants.MethodConstants.Registration.INDEX;
 @RequestMapping(INDEX)
 public class RegistrationController {
 
+    private final UserRepository userRepository;
+
+    private final AuthorizationRepository authorizationRepository;
+
     @Autowired
-    private UserCrudRepository userCrudRepository;
+    public RegistrationController(UserRepository userRepository, AuthorizationRepository authorizationRepository) {
+        this.userRepository = userRepository;
+        this.authorizationRepository = authorizationRepository;
+    }
 
     @RequestMapping(value = FACEBOOK,
             produces = { MediaType.APPLICATION_JSON_VALUE },
@@ -32,7 +40,7 @@ public class RegistrationController {
         DeferredResult<UserModel> asyncTask = new DeferredResult<>();
 
         FacebookParseService
-                .getInstance(asyncTask, userCrudRepository)
+                .getInstance(asyncTask, userRepository, authorizationRepository)
                 .execute(token);
 
         return asyncTask;
