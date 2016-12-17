@@ -2,7 +2,6 @@ package com.github.sasd97.models;
 
 import com.github.sasd97.utils.DateUtils;
 import com.github.sasd97.utils.HashUtils;
-import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 
@@ -11,18 +10,15 @@ import javax.persistence.*;
 public class AuthorizationModel {
 
     @Id
-    @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long authorizationId;
 
     @ManyToOne
     private UserModel user;
 
-    @Expose
     @Column(nullable = false)
     private String token;
 
-    @Expose
     @Column(nullable = false)
     private long creationDate = DateUtils.timestamp();
 

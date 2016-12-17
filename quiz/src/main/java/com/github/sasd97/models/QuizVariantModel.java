@@ -1,7 +1,5 @@
 package com.github.sasd97.models;
 
-import com.google.gson.annotations.Expose;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,14 +7,11 @@ import javax.persistence.*;
 public class QuizVariantModel
 {
     @Id
-    @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long variantId;
 
-    @Expose
     private int type; //TODO: сделать enum`ом
 
-    @Expose
     private String value;
 
     public int getType()

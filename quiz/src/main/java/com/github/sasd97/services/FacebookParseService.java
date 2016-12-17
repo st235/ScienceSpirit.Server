@@ -55,6 +55,11 @@ public class FacebookParseService implements Callback<JsonNode> {
     public void completed(HttpResponse<JsonNode> response) {
         try {
             String socialId = response.getBody().getObject().getString("id");
+
+            String firstName = null;
+            if (response.getBody().getObject().has("first_name"))
+                firstName = response.getBody().getObject().getString("first_name");
+
             UserModel findModel = findUser(socialId);
 
             if (findModel != null) {
@@ -66,7 +71,7 @@ public class FacebookParseService implements Callback<JsonNode> {
             }
 
             result.setResult(
-                    new BaseResponseModel<>(createUser(socialId)).success()
+                    new BaseResponseModel<>(createUser(socialId, firstName)).success()
             );
         } catch (JSONException e) {
             e.printStackTrace();
@@ -109,9 +114,10 @@ public class FacebookParseService implements Callback<JsonNode> {
         return list.size() == 0 ? null : list.get(0);
     }
 
-    private UserModel createUser(@NotNull String socialId) {
+    private UserModel createUser(@NotNull String socialId, String firstName) {
         UserModel userModel = new UserModel();
         userModel.setSocialId(socialId);
+        if (firstName != null) userModel.setFirstName(firstName);
 
         userRepository.save(userModel);
 

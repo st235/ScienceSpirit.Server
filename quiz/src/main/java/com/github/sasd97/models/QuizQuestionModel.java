@@ -1,7 +1,5 @@
 package com.github.sasd97.models;
 
-import com.google.gson.annotations.Expose;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,21 +8,16 @@ import java.util.List;
 public class QuizQuestionModel
 {
     @Id
-    @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long questionId;
 
-    @Expose
     private int topicId;
 
-    @Expose
     private String description;
 
-    @Expose
     @OneToOne
     private QuizVariantModel rightAnswer;
 
-    @Expose
     @OneToMany
     private List<QuizVariantModel> variants;
 

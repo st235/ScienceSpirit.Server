@@ -1,7 +1,6 @@
 package com.github.sasd97.models;
 
 import com.github.sasd97.utils.DateUtils;
-import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 
@@ -14,21 +13,16 @@ import javax.persistence.*;
 public class UserModel {
 
     @Id
-    @Expose
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @Expose
     private String firstName;
 
-    @Expose
     private String lastName;
 
-    @Expose
     @Column(unique = true)
     private String socialId;
 
-    @Expose
     @Column(nullable = false)
     private long registrationDate = DateUtils.timestamp();
 

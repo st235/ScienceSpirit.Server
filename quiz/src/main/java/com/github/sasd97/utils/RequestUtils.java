@@ -13,7 +13,7 @@ public class RequestUtils {
     private RequestUtils() {}
 
     public static void getFacebookUser(String token, Callback<JsonNode> callback) {
-        String url = String.format("https://graph.facebook.com/me?access_token=%s&fields=email", token);
+        String url = String.format("https://graph.facebook.com/me?access_token=%s&fields=first_name", token);
         Unirest.get(url).asJsonAsync(callback);
     }
 }

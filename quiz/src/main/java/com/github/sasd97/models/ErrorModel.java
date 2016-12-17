@@ -1,19 +1,15 @@
 package com.github.sasd97.models;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * Created by Alexadner Dadukin on 11/30/2016.
  */
 public class ErrorModel {
 
-    @Expose
     private int code;
 
-    @Expose
     private String description;
 
-    @Expose String url;
+    private String url;
 
     public ErrorModel() {
         this.code = 500;

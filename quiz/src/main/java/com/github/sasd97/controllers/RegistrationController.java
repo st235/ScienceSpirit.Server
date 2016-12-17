@@ -28,7 +28,8 @@ public class RegistrationController {
     private final AuthorizationRepository authorizationRepository;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, AuthorizationRepository authorizationRepository) {
+    public RegistrationController(UserRepository userRepository,
+                                  AuthorizationRepository authorizationRepository) {
         this.userRepository = userRepository;
         this.authorizationRepository = authorizationRepository;
     }
