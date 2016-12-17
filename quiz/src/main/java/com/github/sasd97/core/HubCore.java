@@ -16,14 +16,14 @@ public class HubCore extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/hello");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/hello"); // prefix to outcoming messages
+        config.setApplicationDestinationPrefixes("/app"); // prefix to incoming messages
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
-                .addEndpoint("/websocket/holder")
+                .addEndpoint("/sockets/sockjs")
                 .setAllowedOrigins("*")
                 .withSockJS();
     }

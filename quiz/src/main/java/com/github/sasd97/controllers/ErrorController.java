@@ -2,7 +2,6 @@ package com.github.sasd97.controllers;
 
 import com.github.sasd97.errors.NotFoundError;
 import com.github.sasd97.models.reponse.ErrorResponseModel;
-import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ import static com.github.sasd97.constants.MethodConstants.Base.ERROR;
 @RestController
 @ControllerAdvice
 @RequestMapping(ERROR)
-public class IndexController implements ErrorController {
+public class ErrorController implements org.springframework.boot.autoconfigure.web.ErrorController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundError.class)
