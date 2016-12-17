@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.github.sasd97.constants.MethodConstants.Base.ERROR;
+import static com.github.sasd97.constants.MethodConstants.Error.ERROR;
 
 /**
  * Created by Alexadner Dadukin on 11/30/2016.

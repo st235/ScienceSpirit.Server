@@ -7,7 +7,7 @@ public final class MethodConstants {
 
     private MethodConstants() {}
 
-    public static final class Base {
+    public static final class Error {
 
         public static final String ERROR = "/error";
     }
@@ -16,5 +16,12 @@ public final class MethodConstants {
 
         public static final String INDEX = "/register";
         public static final String FACEBOOK = "/facebook/{token}";
+    }
+
+    public static final class WebRegistration {
+
+        public static final String INDEX = "/webregister";
+        public static final String FACEBOOK = "/facebook";
+        public static final String FACEBOOK_REDIRECT = "/redirect/facebook";
     }
 }

@@ -24,7 +24,6 @@ import static com.github.sasd97.constants.MethodConstants.Registration.INDEX;
 public class RegistrationController {
 
     private final UserRepository userRepository;
-
     private final AuthorizationRepository authorizationRepository;
 
     @Autowired
