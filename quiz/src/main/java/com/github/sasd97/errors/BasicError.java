@@ -8,4 +8,11 @@ import javax.management.RuntimeErrorException;
 public abstract class BasicError extends RuntimeException {
     public abstract int getCode();
     public abstract String getDescription();
+
+    @Override
+    public String toString() {
+        return String.format("BasicError{\ncode=%1$d\ndescription=%2$s\n}",
+                getCode(),
+                getDescription());
+    }
 }

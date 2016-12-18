@@ -1,6 +1,8 @@
 package com.github.sasd97.services;
 
 import com.github.sasd97.errors.NotFoundError;
+import com.github.sasd97.errors.UnhandledError;
+import com.github.sasd97.events.ParserResultListener;
 import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.models.UserModel;
 import com.github.sasd97.models.reponse.BaseResponseModel;
@@ -23,28 +25,32 @@ import java.util.List;
  * Created by Alexadner Dadukin on 11/29/2016.
  */
 
-@Service
 public class FacebookParseService implements Callback<JsonNode> {
+
+    private static FacebookParseService facebookParseService;
 
     private UserRepository userRepository;
     private AuthorizationRepository authorizationRepository;
 
-    private DeferredResult<BaseResponseModel<?>> result;
-    private static FacebookParseService facebookParseService;
+    private ParserResultListener<UserModel> listener;
 
-    private FacebookParseService() {}
+    private FacebookParseService() {
+    }
 
-    public static FacebookParseService getInstance(@NotNull DeferredResult<BaseResponseModel<?>> result,
+    public static FacebookParseService getInstance(@NotNull ParserResultListener<UserModel> listener,
                                                    @NotNull UserRepository userRepository,
                                                    @NotNull AuthorizationRepository authorizationRepository) {
         if (facebookParseService == null) {
             facebookParseService = new FacebookParseService();
         }
 
-        facebookParseService.setAsyncHandler(result);
+        facebookParseService.addListener(listener);
         facebookParseService.setRepositories(userRepository, authorizationRepository);
-
         return facebookParseService;
+    }
+
+    private void addListener(@NotNull ParserResultListener<UserModel> listener) {
+        this.listener = listener;
     }
 
     public void execute(String token) {
@@ -64,36 +70,26 @@ public class FacebookParseService implements Callback<JsonNode> {
 
             if (findModel != null) {
                 setAccessToken(findModel);
-                result.setResult(
-                        new BaseResponseModel<>(findModel).success()
-                );
+                listener.onSuccess(findModel);
                 return;
             }
 
-            result.setResult(
-                    new BaseResponseModel<>(createUser(socialId, firstName)).success()
-            );
+            listener.onSuccess(createUser(socialId, firstName));
         } catch (JSONException e) {
             e.printStackTrace();
-            result.setErrorResult(new NotFoundError());
+            listener.onError(new NotFoundError());
         }
     }
 
     @Override
     public void failed(UnirestException e) {
         e.printStackTrace();
-        result.setErrorResult(new NotFoundError());
+        listener.onError(new NotFoundError());
     }
 
     @Override
     public void cancelled() {
-        result.setErrorResult(
-                new ErrorResponseModel(401, "Not allowed")
-        );
-    }
-
-    private void setAsyncHandler(@NotNull DeferredResult<BaseResponseModel<?>> result) {
-        this.result = result;
+        listener.onError(new UnhandledError());
     }
 
     private void setRepositories(UserRepository userRepository,

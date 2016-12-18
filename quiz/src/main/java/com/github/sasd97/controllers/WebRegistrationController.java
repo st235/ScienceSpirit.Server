@@ -1,6 +1,9 @@
 package com.github.sasd97.controllers;
 
+import com.github.sasd97.errors.BasicError;
 import com.github.sasd97.errors.IllegalArgumentError;
+import com.github.sasd97.events.ParserResultListener;
+import com.github.sasd97.models.UserModel;
 import com.github.sasd97.models.reponse.BaseResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
@@ -33,7 +36,7 @@ public class WebRegistrationController {
 
     @Autowired
     public WebRegistrationController(UserRepository userRepository,
-                                  AuthorizationRepository authorizationRepository) {
+                                     AuthorizationRepository authorizationRepository) {
         this.userRepository = userRepository;
         this.authorizationRepository = authorizationRepository;
     }
@@ -51,21 +54,29 @@ public class WebRegistrationController {
     @RequestMapping(value = FACEBOOK_REDIRECT,
             method = RequestMethod.GET)
     public DeferredResult<BaseResponseModel<?>> registerFacebook(@RequestParam("code") String code) {
-        DeferredResult<BaseResponseModel<?>> result = new DeferredResult<>();
+        final DeferredResult<BaseResponseModel<?>> asyncTask = new DeferredResult<>();
 
-        System.out.print(code);
-        System.out.print(code.equalsIgnoreCase(""));
-
-
-        if (code.equalsIgnoreCase("")){
-            result.setErrorResult(new IllegalArgumentError());
-            return result;
+        if (code.equalsIgnoreCase("")) {
+            asyncTask.setErrorResult(new IllegalArgumentError());
+            return asyncTask;
         }
 
         WebCodeRequestService
-                .getInstance(result, userRepository, authorizationRepository)
+                .getInstance(new ParserResultListener<UserModel>() {
+                    @Override
+                    public void onSuccess(UserModel result) {
+                        asyncTask.setResult(
+                                new BaseResponseModel<>(result).success()
+                        );
+                    }
+
+                    @Override
+                    public void onError(BasicError error) {
+                        asyncTask.setErrorResult(error);
+                    }
+                }, userRepository, authorizationRepository)
                 .code(code, FACEBOOK_REDIRECT_URL);
 
-        return result;
+        return asyncTask;
     }
 }

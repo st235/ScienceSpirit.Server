@@ -1,5 +1,8 @@
 package com.github.sasd97.controllers;
 
+import com.github.sasd97.errors.BasicError;
+import com.github.sasd97.events.ParserResultListener;
+import com.github.sasd97.models.UserModel;
 import com.github.sasd97.models.reponse.BaseResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
@@ -40,7 +43,20 @@ public class RegistrationController {
         DeferredResult<BaseResponseModel<?>> asyncTask = new DeferredResult<>();
 
         FacebookParseService
-                .getInstance(asyncTask, userRepository, authorizationRepository)
+                .getInstance(new ParserResultListener<UserModel>() {
+                    @Override
+                    public void onSuccess(UserModel result) {
+                        asyncTask.setResult(
+                                new BaseResponseModel<>(result).success()
+                        );
+                    }
+
+                    @Override
+                    public void onError(BasicError error) {
+                        System.out.print(asyncTask);
+                        asyncTask.setErrorResult(error);
+                    }
+                }, userRepository, authorizationRepository)
                 .execute(token);
 
         return asyncTask;
