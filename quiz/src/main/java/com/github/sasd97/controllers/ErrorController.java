@@ -1,5 +1,6 @@
 package com.github.sasd97.controllers;
 
+import com.github.sasd97.errors.BasicError;
 import com.github.sasd97.errors.NotFoundError;
 import com.github.sasd97.models.reponse.ErrorResponseModel;
 import org.springframework.http.HttpStatus;
@@ -18,16 +19,15 @@ import static com.github.sasd97.constants.MethodConstants.Error.ERROR;
 @RequestMapping(ERROR)
 public class ErrorController implements org.springframework.boot.autoconfigure.web.ErrorController {
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundError.class)
-    public ErrorResponseModel notFoundError(HttpServletRequest req, Exception ex) {
-        NotFoundError error = ((NotFoundError) ex);
+    @ExceptionHandler(BasicError.class)
+    public ErrorResponseModel basicError(HttpServletRequest req, Exception ex) {
+        BasicError error = ((BasicError) ex);
         return new ErrorResponseModel(error.getCode(), error.getDescription(), req.getRequestURL().toString());
     }
 
     @ExceptionHandler(Exception.class)
-    public ErrorResponseModel error() {
-        return new ErrorResponseModel();
+    public ErrorResponseModel error(HttpServletRequest req) {
+        return new ErrorResponseModel(0, "Unknown error", req.getRequestURL().toString());
     }
 
     @Override

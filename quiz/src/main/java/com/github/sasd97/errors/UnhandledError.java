@@ -4,18 +4,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Created by Alexadner Dadukin on 11/30/2016.
+ * Created by alexander on 18.12.16.
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Not found")
-public class NotFoundError extends BasicError {
+
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Unknown error")
+public class UnhandledError extends BasicError {
 
     @Override
     public int getCode() {
-        return 404;
+        return 0;
     }
 
     @Override
     public String getDescription() {
-        return "Not found";
+        return "Unknown error";
     }
 }
