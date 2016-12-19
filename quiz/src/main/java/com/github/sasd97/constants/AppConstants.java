@@ -10,6 +10,7 @@ public final class AppConstants {
     public static final String DEFAULT_PACKAGE = "com.github.sasd97";
     public static final String CONTROLLERS_PACKAGE = "com.github.sasd97.controllers";
     public static final String CORE_PACKAGE = "com.github.sasd97.core";
+    public static final String CONFIG_PACKAGE = "com.github.sasd97.config";
     public static final String REPOSITORIES_PACKAGE = "com.github.sasd97.repositories";
     public static final String EVENTS_PACKAGE = "com.github.sasd97.events";
     public static final String ERRORS_PACKAGE = "com.github.sasd97.errors";

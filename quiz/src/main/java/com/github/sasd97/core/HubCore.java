@@ -1,5 +1,7 @@
 package com.github.sasd97.core;
 
+import com.github.sasd97.configs.WebSocketConfig;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -25,6 +27,12 @@ public class HubCore extends AbstractWebSocketMessageBrokerConfigurer {
         registry
                 .addEndpoint("/sockets/sockjs")
                 .setAllowedOrigins("*")
-                .withSockJS();
+                .withSockJS()
+                .setInterceptors(socketChanelInterceptor());
+    }
+
+    @Bean
+    public WebSocketConfig socketChanelInterceptor() {
+        return new WebSocketConfig();
     }
 }
