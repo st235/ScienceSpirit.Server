@@ -13,6 +13,8 @@ public class HashUtils {
 
     private HashUtils() {}
 
+    private static final String emptyKey = "iWantToBreakFReE";
+
     private static final String[] keystore = new String[] {
             "hello,woRld", "queen", "i_ll_be_black"
     };
@@ -33,11 +35,19 @@ public class HashUtils {
         BigInteger bigInt = new BigInteger(1, digest);
         String md5Hex = bigInt.toString(16);
 
-        while( md5Hex.length() < 32 ) {
+        while (md5Hex.length() < 32) {
             md5Hex = "0" + md5Hex;
         }
 
         return md5Hex;
+    }
+
+    public static String randomMd5() {
+        return md5(randomData(emptyKey));
+    }
+
+    public static String randomMd5(@NotNull String data) {
+        return md5(randomData(data));
     }
 
     public static String randomData(@NotNull String data) {

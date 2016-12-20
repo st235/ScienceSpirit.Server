@@ -12,6 +12,11 @@ import javax.persistence.*;
 @Table(name = "users")
 public class UserModel {
 
+    public enum Role {
+        ADMIN,
+        USER
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
@@ -20,8 +25,15 @@ public class UserModel {
 
     private String lastName;
 
+    private String passwordHash;
+
+    private String avatarUrl;
+
     @Column(unique = true)
     private String socialId;
+
+    @Column(nullable = false)
+    private Role role;
 
     @Column(nullable = false)
     private long registrationDate = DateUtils.timestamp();
@@ -67,6 +79,30 @@ public class UserModel {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.github.sasd97.controllers;
 
 import com.github.sasd97.errors.BasicError;
-import com.github.sasd97.errors.NotFoundError;
-import com.github.sasd97.models.reponse.ErrorResponseModel;
-import org.springframework.http.HttpStatus;
+import com.github.sasd97.models.response.ErrorResponseModel;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

@@ -5,8 +5,6 @@ import com.github.sasd97.errors.UnhandledError;
 import com.github.sasd97.events.ParserResultListener;
 import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.models.UserModel;
-import com.github.sasd97.models.reponse.BaseResponseModel;
-import com.github.sasd97.models.reponse.ErrorResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
 import com.github.sasd97.utils.RequestUtils;
@@ -15,8 +13,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.async.Callback;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONException;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -113,6 +109,7 @@ public class FacebookParseService implements Callback<JsonNode> {
     private UserModel createUser(@NotNull String socialId, String firstName) {
         UserModel userModel = new UserModel();
         userModel.setSocialId(socialId);
+        userModel.setRole(UserModel.Role.USER);
         if (firstName != null) userModel.setFirstName(firstName);
 
         userRepository.save(userModel);

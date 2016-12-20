@@ -24,4 +24,12 @@ public final class MethodConstants {
         public static final String FACEBOOK = "/facebook";
         public static final String FACEBOOK_REDIRECT = "/redirect/facebook";
     }
+
+    public static final class AdminRegistration {
+
+        public static final String INDEX = "/admin";
+        public static final String REGISTER = "/register";
+        public static final String CREATE_THEME = "/create/theme";
+        public static final String CREATE_QUESTION = "/create/question";
+    }
 }

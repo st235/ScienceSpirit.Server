@@ -3,7 +3,7 @@ package com.github.sasd97.controllers;
 import com.github.sasd97.errors.BasicError;
 import com.github.sasd97.events.ParserResultListener;
 import com.github.sasd97.models.UserModel;
-import com.github.sasd97.models.reponse.BaseResponseModel;
+import com.github.sasd97.models.response.BaseResponseModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
 import com.github.sasd97.services.FacebookParseService;

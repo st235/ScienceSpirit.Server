@@ -1,4 +1,4 @@
-package com.github.sasd97.models.reponse;
+package com.github.sasd97.models.response;
 
 /**
  * Created by Alexander Dadukin on 11/30/2016.

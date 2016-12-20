@@ -1,4 +1,4 @@
-package com.github.sasd97.models.reponse;
+package com.github.sasd97.models.response;
 
 import com.github.sasd97.models.ErrorModel;
 
