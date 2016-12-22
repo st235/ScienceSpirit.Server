@@ -29,7 +29,19 @@ public final class MethodConstants {
 
         public static final String INDEX = "/admin";
         public static final String REGISTER = "/register";
-        public static final String CREATE_THEME = "/create/theme";
-        public static final String CREATE_QUESTION = "/create/question";
+    }
+
+    public static final class ThemeAdministration {
+
+        public static final String INDEX = "/theme";
+        public static final String CREATE = "/create";
+
+    }
+
+    public static final class QuestionAdministration {
+
+        public static final String INDEX = "/question";
+        public static final String CREATE = "/create";
+
     }
 }

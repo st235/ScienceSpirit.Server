@@ -85,6 +85,9 @@ public class DatabaseCore {
                 setProperty("hibernate.hbm2ddl.auto", hbm2ddl);
                 setProperty("hibernate.dialect", dialect);
                 setProperty("hibernate.globally_quoted_identifiers", "true");
+                setProperty("hibernate.connection.CharSet", "utf8");
+                setProperty("hibernate.connection.characterEncoding", "utf-8");
+                setProperty("hibernate.connection.useUnicode", "true");
             }
         };
     }

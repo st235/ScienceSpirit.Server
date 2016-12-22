@@ -16,7 +16,7 @@ public class AuthorizationModel {
     @ManyToOne
     private UserModel user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String token;
 
     @Column(nullable = false)
