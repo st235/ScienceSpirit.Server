@@ -19,12 +19,14 @@ public class ErrorController implements org.springframework.boot.autoconfigure.w
 
     @ExceptionHandler(BasicError.class)
     public ErrorResponseModel basicError(HttpServletRequest req, Exception ex) {
+        ex.printStackTrace();
         BasicError error = ((BasicError) ex);
         return new ErrorResponseModel(error.getCode(), error.getDescription(), req.getRequestURL().toString());
     }
 
     @ExceptionHandler(Exception.class)
-    public ErrorResponseModel error(HttpServletRequest req) {
+    public ErrorResponseModel error(HttpServletRequest req, Exception ex) {
+        ex.printStackTrace();
         return new ErrorResponseModel(0, "Unknown error", req.getRequestURL().toString());
     }
 

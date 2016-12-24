@@ -39,7 +39,7 @@ public final class MethodConstants {
 
     public static final class QuestionAdministration {
 
-        public static final String INDEX = "/question";
+        public static final String INDEX = "/question/admin";
         public static final String CREATE = "/create";
     }
 
@@ -47,5 +47,10 @@ public final class MethodConstants {
 
         public static final String INDEX = "/themes";
         public static final String GET_ALL = "/get/all";
+    }
+
+    public static final class Questions {
+
+        public static final String INDEX = "/questions";
     }
 }

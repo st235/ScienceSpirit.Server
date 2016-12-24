@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Alexadner Dadukin on 12/22/2016.
@@ -12,6 +13,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "variants")
 public class VariantModel {
+
+    public VariantModel() {}
+
+    public VariantModel(@NotNull String title) {
+        this.title = title;
+    }
 
     @Id
     @GeneratedValue
