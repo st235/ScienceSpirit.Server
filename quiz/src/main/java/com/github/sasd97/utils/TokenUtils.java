@@ -13,17 +13,22 @@ import java.util.List;
  */
 
 @Service
-public class AdminUtils {
+public class TokenUtils {
 
     private AuthorizationRepository authorizationRepository;
 
     @Autowired
-    public AdminUtils(AuthorizationRepository authorizationRepository) {
+    public TokenUtils(AuthorizationRepository authorizationRepository) {
         this.authorizationRepository = authorizationRepository;
     }
 
+    public boolean isToken(@NotNull String token) {
+        List<AuthorizationModel> authorizations = authorizationRepository.findByToken(token);
+        return authorizations.size() != 0;
+    }
+
     public boolean isAdminToken(@NotNull String token) {
-        List<AuthorizationModel> authorization  = authorizationRepository.findAllByToken(token);
+        List<AuthorizationModel> authorization  = authorizationRepository.findAdminsByToken(token);
         return !(authorization == null || authorization.size() > 1 || authorization.size() == 0);
     }
 }

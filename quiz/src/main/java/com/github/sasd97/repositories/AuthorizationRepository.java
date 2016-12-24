@@ -21,5 +21,8 @@ public interface AuthorizationRepository extends CrudRepository<AuthorizationMod
     List<AuthorizationModel> findByUserId(@NotNull Long userId);
 
     @Query("select a from AuthorizationModel a inner join a.user u where u.role = 0 and a.token = :token")
-    List<AuthorizationModel> findAllByToken(@Param("token") String token);
+    List<AuthorizationModel> findAdminsByToken(@Param("token") String token);
+
+    @Query("select a from AuthorizationModel a where a.token = :token")
+    List<AuthorizationModel> findByToken(@Param("token") String token);
 }

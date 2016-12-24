@@ -31,17 +31,21 @@ public final class MethodConstants {
         public static final String REGISTER = "/register";
     }
 
-    public static final class ThemeAdministration {
+    public static final class ThemesAdministration {
 
-        public static final String INDEX = "/theme";
+        public static final String INDEX = "/themes/admin";
         public static final String CREATE = "/create";
-
     }
 
     public static final class QuestionAdministration {
 
         public static final String INDEX = "/question";
         public static final String CREATE = "/create";
+    }
 
+    public static final class Themes {
+
+        public static final String INDEX = "/themes";
+        public static final String GET_ALL = "/get/all";
     }
 }

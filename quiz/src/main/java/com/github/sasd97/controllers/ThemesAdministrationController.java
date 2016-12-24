@@ -4,7 +4,7 @@ import com.github.sasd97.errors.IllegalArgumentError;
 import com.github.sasd97.errors.NotAuthorizedError;
 import com.github.sasd97.models.ThemeModel;
 import com.github.sasd97.repositories.ThemesRepository;
-import com.github.sasd97.utils.AdminUtils;
+import com.github.sasd97.utils.TokenUtils;
 import com.github.sasd97.utils.LanguageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,8 +18,8 @@ import javax.validation.constraints.NotNull;
 import static com.github.sasd97.constants.ParamsConstants.LANUGAGE;
 import static com.github.sasd97.constants.ParamsConstants.ACCESS_TOKEN;
 
-import static com.github.sasd97.constants.MethodConstants.ThemeAdministration.CREATE;
-import static com.github.sasd97.constants.MethodConstants.ThemeAdministration.INDEX;
+import static com.github.sasd97.constants.MethodConstants.ThemesAdministration.CREATE;
+import static com.github.sasd97.constants.MethodConstants.ThemesAdministration.INDEX;
 
 /**
  * Created by Alexadner Dadukin on 12/22/2016.
@@ -27,15 +27,15 @@ import static com.github.sasd97.constants.MethodConstants.ThemeAdministration.IN
 
 @RestController
 @RequestMapping(INDEX)
-public class ThemeAdministrationController {
+public class ThemesAdministrationController {
 
-    private AdminUtils adminUtils;
+    private TokenUtils tokenUtils;
     private ThemesRepository themesRepository;
 
     @Autowired
-    public ThemeAdministrationController(@NotNull AdminUtils adminUtils,
-                                         @NotNull ThemesRepository themesRepository) {
-        this.adminUtils = adminUtils;
+    public ThemesAdministrationController(@NotNull TokenUtils tokenUtils,
+                                          @NotNull ThemesRepository themesRepository) {
+        this.tokenUtils = tokenUtils;
         this.themesRepository = themesRepository;
     }
 
@@ -50,7 +50,7 @@ public class ThemeAdministrationController {
         System.out.println(token);
         System.out.println(title);
 
-        if (!adminUtils.isAdminToken(token)) throw new NotAuthorizedError();
+        if (!tokenUtils.isAdminToken(token)) throw new NotAuthorizedError();
 
         LanguageUtils.Language ln = LanguageUtils.toLanguage(language);
         if (ln == LanguageUtils.Language.UNKNOWN) throw new IllegalArgumentError();
