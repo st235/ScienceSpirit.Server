@@ -13,6 +13,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.async.Callback;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -56,11 +57,10 @@ public class FacebookParseService implements Callback<JsonNode> {
     @Override
     public void completed(HttpResponse<JsonNode> response) {
         try {
-            String socialId = response.getBody().getObject().getString("id");
+            JSONObject responseObject = response.getBody().getObject();
+            String socialId = responseObject.getString("id");
 
-            String firstName = null;
-            if (response.getBody().getObject().has("first_name"))
-                firstName = response.getBody().getObject().getString("first_name");
+            String firstName = responseObject.has("first_name") ? responseObject.getString("first_name") : null;
 
             UserModel findModel = findUser(socialId);
 
@@ -110,7 +110,15 @@ public class FacebookParseService implements Callback<JsonNode> {
         UserModel userModel = new UserModel();
         userModel.setSocialId(socialId);
         userModel.setRole(UserModel.Role.USER);
-        if (firstName != null) userModel.setFirstName(firstName);
+
+        StringBuilder builder = new StringBuilder();
+
+        if (firstName != null) {
+            builder.append(firstName).append("_");
+        }
+
+        builder.append(socialId);
+        userModel.setNickname(builder.toString());
 
         userRepository.save(userModel);
 

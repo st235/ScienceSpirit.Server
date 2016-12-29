@@ -6,15 +6,18 @@ import java.util.List;
  * Created by Alexadner Dadukin on 12/24/2016.
  */
 
-public class QuestionRequestModel extends RequestValidator {
+public final class QuestionRequestModel extends RequestValidator {
 
     Long themeId;
+    String description;
     String rightVariant;
     List<String> otherVariants;
 
     public Long getThemeId() {
         return themeId;
     }
+
+    public String getDescription() { return description; }
 
     public String getRightVariant() {
         return rightVariant;
@@ -26,13 +29,14 @@ public class QuestionRequestModel extends RequestValidator {
 
     @Override
     protected boolean isValid() {
-        return themeId != null && rightVariant != null & otherVariants != null && otherVariants.size() > 0;
+        return rightVariant != null & otherVariants != null && otherVariants.size() > 0;
     }
 
     @Override
     public String toString() {
         return "QuestionRequestModel{" +
                 "themeId=" + themeId +
+                "description=" + description +
                 ", rightVariant='" + rightVariant + '\'' +
                 ", otherVariants=" + otherVariants +
                 '}';

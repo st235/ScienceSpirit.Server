@@ -59,7 +59,7 @@ public class AdminRegistrationController {
 
         UserModel admin = new UserModel();
         if (userModel == null || userModel.size() == 0) {
-            admin.setFirstName(nickname);
+            admin.setNickname(nickname);
             admin.setPasswordHash(passwordHash);
             admin.setRole(UserModel.Role.ADMIN);
             admin.setSocialId(socialId);

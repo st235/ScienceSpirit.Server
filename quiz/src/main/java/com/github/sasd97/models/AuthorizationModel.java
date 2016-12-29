@@ -29,6 +29,7 @@ public class AuthorizationModel {
     }
 
 
+
     public long getCreationDate() {
         return creationDate;
     }
@@ -45,15 +46,6 @@ public class AuthorizationModel {
         this.token = HashUtils.md5(HashUtils.randomData(data));
     }
 
-
-    public Long getUserId() {
-        return authorizationId;
-    }
-
-    public void setUserId(Long authorizationId) {
-        this.authorizationId = authorizationId;
-    }
-
     public Long getAuthorizationId() {
         return authorizationId;
     }
@@ -68,6 +60,10 @@ public class AuthorizationModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public Long getUserId() {
+        return user.getUserId();
     }
 
     @Override

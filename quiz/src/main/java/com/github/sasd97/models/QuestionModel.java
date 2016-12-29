@@ -18,6 +18,11 @@ public class QuestionModel {
     @ManyToOne
     private ThemeModel theme;
 
+    private String description;
+
+    @OneToOne
+    private VariantModel media;
+
     @OneToOne
     private VariantModel rightVariant;
 
@@ -40,6 +45,22 @@ public class QuestionModel {
         this.rightVariant = rightVariant;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public VariantModel getMedia() {
+        return media;
+    }
+
+    public void setMedia(VariantModel media) {
+        this.media = media;
+    }
+
     public List<VariantModel> getOtherVariants() {
         return otherVariants;
     }
@@ -53,6 +74,8 @@ public class QuestionModel {
         return "QuestionModel{" +
                 "questionId=" + questionId +
                 ", theme=" + theme +
+                ", description='" + description + '\'' +
+                ", media=" + media +
                 ", rightVariant=" + rightVariant +
                 ", otherVariants=" + otherVariants +
                 '}';

@@ -1,5 +1,6 @@
 package com.github.sasd97.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.sasd97.utils.DateUtils;
 
 import javax.persistence.*;
@@ -21,17 +22,19 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    private String firstName;
+    @Column(unique = true)
+    private String nickname;
 
-    private String lastName;
-
+    @JsonIgnore
     private String passwordHash;
 
     private String avatarUrl;
 
+    @JsonIgnore
     @Column(unique = true)
     private String socialId;
 
+    @JsonIgnore
     @Column(nullable = false)
     private Role role;
 
@@ -45,20 +48,12 @@ public class UserModel {
         return userId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getSocialId() {
@@ -109,8 +104,7 @@ public class UserModel {
     public String toString() {
         return "UserModel{" +
                 "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", socialId='" + socialId + '\'' +
                 ", registrationDate=" + registrationDate +
                 '}';

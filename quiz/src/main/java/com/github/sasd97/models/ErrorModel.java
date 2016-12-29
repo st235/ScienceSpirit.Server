@@ -11,6 +11,8 @@ public class ErrorModel {
 
     private String url;
 
+    private String traceMessage;
+
     public ErrorModel() {
         this.code = 500;
     }
@@ -28,5 +30,9 @@ public class ErrorModel {
         this.code = code;
         this.description = description;
         this.url = url;
+    }
+
+    public void setTraceMessage(String traceMessage) {
+        this.traceMessage = traceMessage;
     }
 }

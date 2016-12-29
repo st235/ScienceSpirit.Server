@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 
-import static com.github.sasd97.constants.ParamsConstants.LANUGAGE;
+import static com.github.sasd97.constants.ParamsConstants.LANGUAGE;
 import static com.github.sasd97.constants.ParamsConstants.ACCESS_TOKEN;
 
 import static com.github.sasd97.constants.MethodConstants.ThemesAdministration.CREATE;
@@ -42,7 +42,7 @@ public class ThemesAdministrationController {
     @RequestMapping(value = CREATE,
             produces = {MediaType.APPLICATION_JSON_VALUE},
             method = RequestMethod.GET)
-    public ThemeModel createTheme(@RequestParam(LANUGAGE) String language,
+    public ThemeModel createTheme(@RequestParam(LANGUAGE) String language,
                                   @RequestParam(ACCESS_TOKEN) String token,
                                   @RequestParam("title") String title) {
 

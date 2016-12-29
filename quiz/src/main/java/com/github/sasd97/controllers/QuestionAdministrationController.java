@@ -66,6 +66,7 @@ public class QuestionAdministrationController {
 
         QuestionModel questionModel = new QuestionModel();
         questionModel.setTheme(theme);
+        questionModel.setDescription(question.getDescription());
         questionModel.setRightVariant(rightVariant);
         questionModel.setOtherVariants(othersVariants);
         return questionRepository.save(questionModel);

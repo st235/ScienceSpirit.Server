@@ -22,6 +22,14 @@ public class TokenUtils {
         this.authorizationRepository = authorizationRepository;
     }
 
+    public boolean withToken(@NotNull String token, @NotNull Long id) {
+        List<AuthorizationModel> authorizations = authorizationRepository.findByToken(token);
+        if (authorizations.size() == 0) return false;
+        System.out.println(authorizations.get(0).getUserId());
+        if (!authorizations.get(0).getUserId().equals(id)) return false;
+        return true;
+    }
+
     public boolean isToken(@NotNull String token) {
         List<AuthorizationModel> authorizations = authorizationRepository.findByToken(token);
         return authorizations.size() != 0;

@@ -31,6 +31,21 @@ public final class MethodConstants {
         public static final String REGISTER = "/register";
     }
 
+    public static final class Themes {
+
+        public static final String INDEX = "/themes";
+        public static final String GET_ALL = "/get/all";
+    }
+
+    public static final class User {
+
+        public static final String INDEX = "/user";
+        public static final String GET_BY_ID = "/id/{userId}";
+        public static final String IS_NICKNAME_UNIQUE = "/{nickname}/unique";
+        public static final String EDIT = "/edit/{userId}";
+        public static final String FIND_BY_NICKNAME = "/nickname/{nickname}";
+    }
+
     public static final class ThemesAdministration {
 
         public static final String INDEX = "/themes/admin";
@@ -41,16 +56,5 @@ public final class MethodConstants {
 
         public static final String INDEX = "/question/admin";
         public static final String CREATE = "/create";
-    }
-
-    public static final class Themes {
-
-        public static final String INDEX = "/themes";
-        public static final String GET_ALL = "/get/all";
-    }
-
-    public static final class Questions {
-
-        public static final String INDEX = "/questions";
     }
 }
