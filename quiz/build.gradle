@@ -1,5 +1,5 @@
 group 'com.github.sasd97'
-version '0.0.8'
+version '0.1.0'
 
 buildscript {
     repositories {
