@@ -28,8 +28,6 @@ public class AuthorizationModel {
         this.user = user;
     }
 
-
-
     public long getCreationDate() {
         return creationDate;
     }

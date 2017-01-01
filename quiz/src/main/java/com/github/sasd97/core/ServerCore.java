@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Created by Alexadner Dadukin on 11/20/2016.
  */
 
+@EnableScheduling
 @EnableAutoConfiguration
 @ComponentScan(AppConstants.DEFAULT_PACKAGE)
 @SpringBootApplication

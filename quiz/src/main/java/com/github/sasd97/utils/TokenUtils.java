@@ -39,4 +39,8 @@ public class TokenUtils {
         List<AuthorizationModel> authorization  = authorizationRepository.findAdminsByToken(token);
         return !(authorization == null || authorization.size() > 1 || authorization.size() == 0);
     }
+
+    public String trimSocketToken(@NotNull String socketToken) {
+        return socketToken.substring(1, socketToken.length() - 1);
+    }
 }
