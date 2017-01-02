@@ -9,6 +9,8 @@ public final class ParamsConstants {
 
     public static final String LANGUAGE = "ln";
     public static final String ACCESS_TOKEN = "token";
+    public static final String PAGE = "page";
+    public static final String LIMIT = "limit";
 
     public static final String USER_ID = "userId";
     public static final String USER_NICKNAME = "nickname";

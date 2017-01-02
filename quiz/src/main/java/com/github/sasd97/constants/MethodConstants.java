@@ -38,6 +38,14 @@ public final class MethodConstants {
         public static final String IS_AUTHORIZED = "/authorized/{token}";
     }
 
+    public static final class News {
+
+        public static final String INDEX = "/news";
+        public static final String CREATE = "/create";
+        public static final String GET_CONCRETE = "/get/{newsId}";
+        public static final String GET_ALL = "/all";
+    }
+
     public static final class Themes {
 
         public static final String INDEX = "/themes";

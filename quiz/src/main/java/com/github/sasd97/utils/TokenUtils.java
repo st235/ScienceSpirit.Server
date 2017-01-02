@@ -1,5 +1,6 @@
 package com.github.sasd97.utils;
 
+import com.github.sasd97.errors.NotAuthorizedError;
 import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,16 @@ public class TokenUtils {
         this.authorizationRepository = authorizationRepository;
     }
 
+    public AuthorizationModel getToken(@NotNull String token) {
+        List<AuthorizationModel> authorizations = authorizationRepository.findByToken(token);
+        if (authorizations.size() == 0) throw new NotAuthorizedError();
+        return authorizations.get(0);
+    }
+
+
     public boolean withToken(@NotNull String token, @NotNull Long id) {
         List<AuthorizationModel> authorizations = authorizationRepository.findByToken(token);
         if (authorizations.size() == 0) return false;
-        System.out.println(authorizations.get(0).getUserId());
         if (!authorizations.get(0).getUserId().equals(id)) return false;
         return true;
     }

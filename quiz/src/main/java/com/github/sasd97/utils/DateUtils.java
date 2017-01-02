@@ -1,5 +1,6 @@
 package com.github.sasd97.utils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,6 +12,14 @@ public class DateUtils {
 
     public static long timestamp() {
         return new Date().getTime() / 1000;
+    }
+
+    public static long fromNow(int days) {
+        Date current = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(current);
+        calendar.add(Calendar.DATE, days);
+        return calendar.getTime().getTime() / 1000;
     }
 
     public static Date time(long timestamp) {

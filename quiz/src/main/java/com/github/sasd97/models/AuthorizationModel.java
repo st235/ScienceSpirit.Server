@@ -22,6 +22,9 @@ public class AuthorizationModel {
     @Column(nullable = false)
     private long creationDate = DateUtils.timestamp();
 
+    @Column(nullable = false)
+    private long expirationDate = DateUtils.fromNow(7);
+
     public AuthorizationModel() {}
 
     public AuthorizationModel(UserModel user) {
@@ -64,6 +67,14 @@ public class AuthorizationModel {
         return user.getUserId();
     }
 
+    public long getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(long expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     @Override
     public String toString() {
         return "AuthorizationModel{" +
@@ -71,6 +82,7 @@ public class AuthorizationModel {
                 ", user=" + user +
                 ", token='" + token + '\'' +
                 ", creationDate=" + creationDate +
+                ", expirationDate=" + expirationDate +
                 '}';
     }
 }
