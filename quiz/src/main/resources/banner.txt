@@ -18,5 +18,5 @@ s::::::::::::::s       tt::::::::::::::t     2::::::2222222:::::23::::::33333:::
   sssssssssss              ttttttttttt       22222222222222222222 333333333333333        555555555
 
 
-                                                                    Quiz Game Server
+                                                                    Science Spirit Server
                                                                     Version: 0.1.0

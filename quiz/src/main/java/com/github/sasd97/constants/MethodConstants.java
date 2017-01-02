@@ -31,6 +31,13 @@ public final class MethodConstants {
         public static final String REGISTER = "/register";
     }
 
+    public static final class Token {
+
+        public static final String INDEX = "/tokens";
+        public static final String IS_ADMIN = "/admin/{token}";
+        public static final String IS_AUTHORIZED = "/authorized/{token}";
+    }
+
     public static final class Themes {
 
         public static final String INDEX = "/themes";
