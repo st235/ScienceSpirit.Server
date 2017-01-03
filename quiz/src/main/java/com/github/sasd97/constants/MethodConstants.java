@@ -29,6 +29,7 @@ public final class MethodConstants {
 
         public static final String INDEX = "/admin";
         public static final String REGISTER = "/register";
+        public static final String AUTHORIZE = "/authorize";
     }
 
     public static final class Token {

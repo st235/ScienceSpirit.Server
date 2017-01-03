@@ -4,6 +4,7 @@ import com.github.sasd97.errors.NotAuthorizedError;
 import com.github.sasd97.models.AdminSecretModel;
 import com.github.sasd97.models.AuthorizationModel;
 import com.github.sasd97.models.UserModel;
+import com.github.sasd97.models.response.BaseResponseModel;
 import com.github.sasd97.repositories.AdminSecretRepository;
 import com.github.sasd97.repositories.AuthorizationRepository;
 import com.github.sasd97.repositories.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.github.sasd97.constants.MethodConstants.AdminRegistration.AUTHORIZE;
 import static com.github.sasd97.constants.MethodConstants.AdminRegistration.INDEX;
 import static com.github.sasd97.constants.MethodConstants.AdminRegistration.REGISTER;
 
@@ -44,9 +46,9 @@ public class AdminRegistrationController {
     @RequestMapping(value = REGISTER,
     produces = { MediaType.APPLICATION_JSON_VALUE },
     method = RequestMethod.POST)
-    public UserModel registerAdmin(@RequestParam("nickname") String nickname,
-                                   @RequestParam("passwordHash") String passwordHash,
-                                   @RequestParam("secret") String adminSecret) {
+    public BaseResponseModel<UserModel> registerAdmin(@RequestParam("nickname") String nickname,
+                                                      @RequestParam("passwordHash") String passwordHash,
+                                                      @RequestParam("secret") String adminSecret) {
 
         Iterable<AdminSecretModel> secrets = adminSecretRepository.findAll();
         boolean isSecret = AdminSecretService.isSecret(secrets, adminSecret);
@@ -75,6 +77,19 @@ public class AdminRegistrationController {
         authorizationRepository.save(authorizationModel);
         admin.setAccessToken(authorizationModel.getToken());
 
-        return admin;
+        return new BaseResponseModel<>(admin).success();
+    }
+
+    @RequestMapping(value = AUTHORIZE,
+    produces = { MediaType.APPLICATION_JSON_VALUE },
+    method = RequestMethod.GET)
+        public BaseResponseModel<UserModel> authorizeAdmin(@RequestParam("nickname") String nickname,
+                                                       @RequestParam("passwordHash") String passwordHash) {
+        UserModel user = userRepository.findByNickname(nickname);
+
+        if (user == null) throw new NotAuthorizedError();
+        if (!user.getPasswordHash().equalsIgnoreCase(passwordHash)) throw new NotAuthorizedError();
+
+        return new BaseResponseModel<>(user).success();
     }
 }
