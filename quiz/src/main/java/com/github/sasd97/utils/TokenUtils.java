@@ -50,4 +50,12 @@ public class TokenUtils {
     public String trimSocketToken(@NotNull String socketToken) {
         return socketToken.substring(1, socketToken.length() - 1);
     }
+
+    private boolean holdAuth(@NotNull AuthorizationModel auth) {
+        if (auth == null) return false;
+        Long nowDate = DateUtils.timestamp();
+        if (auth.getExpirationDate() > nowDate) return true;
+        authorizationRepository.delete(auth);
+        return false;
+    }
 }
