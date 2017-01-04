@@ -49,7 +49,6 @@ public class AdminRegistrationController {
     public BaseResponseModel<UserModel> registerAdmin(@RequestParam("nickname") String nickname,
                                                       @RequestParam("passwordHash") String passwordHash,
                                                       @RequestParam("secret") String adminSecret) {
-
         Iterable<AdminSecretModel> secrets = adminSecretRepository.findAll();
         boolean isSecret = AdminSecretService.isSecret(secrets, adminSecret);
 
