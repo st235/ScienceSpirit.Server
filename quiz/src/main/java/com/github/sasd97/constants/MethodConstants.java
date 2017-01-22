@@ -51,6 +51,7 @@ public final class MethodConstants {
 
         public static final String INDEX = "/themes";
         public static final String GET_ALL = "/get/all";
+        public static final String GET_BY_LANGUAGE = "/get/language/filter";
     }
 
     public static final class User {
@@ -60,6 +61,18 @@ public final class MethodConstants {
         public static final String IS_NICKNAME_UNIQUE = "/{nickname}/unique";
         public static final String EDIT = "/edit/{userId}";
         public static final String FIND_BY_NICKNAME = "/nickname/{nickname}";
+    }
+
+    public static final class Game {
+
+        public static final String INDEX = "/game";
+        public static final String CREATE_GAME_BY_THEME = "/by/theme/{themeId}";
+    }
+
+    public static final class Statistic {
+
+        public static final String INDEX = "/statistic";
+
     }
 
     public static final class ThemesAdministration {

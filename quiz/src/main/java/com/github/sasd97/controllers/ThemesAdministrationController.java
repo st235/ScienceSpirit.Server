@@ -45,11 +45,6 @@ public class ThemesAdministrationController {
     public ThemeModel createTheme(@RequestParam(LANGUAGE) String language,
                                   @RequestParam(ACCESS_TOKEN) String token,
                                   @RequestParam("title") String title) {
-
-        System.out.println(language);
-        System.out.println(token);
-        System.out.println(title);
-
         if (!tokenUtils.isAdminToken(token)) throw new NotAuthorizedError();
 
         LanguageUtils.Language ln = LanguageUtils.toLanguage(language);
