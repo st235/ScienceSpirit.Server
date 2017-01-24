@@ -48,7 +48,7 @@ public class ThemesAdministrationController {
         if (!tokenUtils.isAdminToken(token)) throw new NotAuthorizedError();
 
         LanguageUtils.Language ln = LanguageUtils.toLanguage(language);
-        if (ln == LanguageUtils.Language.UNKNOWN) throw new IllegalArgumentError();
+        if (ln == LanguageUtils.Language.UNKNOWN) throw new IllegalArgumentError("language");
 
         ThemeModel theme = new ThemeModel();
         theme.setTitle(title);

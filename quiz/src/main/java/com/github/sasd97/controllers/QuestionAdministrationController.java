@@ -47,15 +47,16 @@ public class QuestionAdministrationController {
     }
 
     @RequestMapping(value = CREATE,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_JSON_VALUE},
             method = RequestMethod.POST)
     public QuestionModel createQuestion(@RequestParam(ACCESS_TOKEN) String token,
-                                        @RequestBody QuestionRequestModel question) {
+                                        @ModelAttribute QuestionRequestModel question) {
         if (!tokenUtils.isAdminToken(token)) throw new NotAuthorizedError();
         question.validate();
 
         ThemeModel theme = themesRepository.findOne(question.getThemeId());
-        if (theme == null) throw new IllegalArgumentError();
+        if (theme == null) throw new IllegalArgumentError("theme");
 
         VariantModel rightVariant = variantRepository.save(new VariantModel(question.getRightVariant()));
         List<VariantModel> othersVariants = new ArrayList<>();

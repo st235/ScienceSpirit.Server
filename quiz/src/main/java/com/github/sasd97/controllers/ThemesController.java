@@ -52,7 +52,7 @@ public class ThemesController {
                                                              @RequestParam(ACCESS_TOKEN) String token) {
         if (!tokenUtils.isToken(token)) throw new NotAuthorizedError();
         LanguageUtils.Language ln = LanguageUtils.toLanguage(language);
-        if (ln == LanguageUtils.Language.UNKNOWN) throw new IllegalArgumentError();
+        if (ln == LanguageUtils.Language.UNKNOWN) throw new IllegalArgumentError("language");
         return new BaseResponseModel<>(themesRepository.sortByLanguage(ln)).success();
     }
 }

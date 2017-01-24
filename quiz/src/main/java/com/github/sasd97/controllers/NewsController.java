@@ -36,10 +36,11 @@ public class NewsController {
     }
 
     @RequestMapping(value = CREATE,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_JSON_VALUE},
             method = RequestMethod.POST)
     public BaseResponseModel<NewsModel> createNews(@RequestParam(ACCESS_TOKEN) String token,
-                                               @RequestBody NewsRequestModel newsRequestModel) {
+                                                   @ModelAttribute NewsRequestModel newsRequestModel) {
         if (!tokenUtils.isAdminToken(token)) throw new NotAuthorizedError();
         AuthorizationModel authorizationModel = tokenUtils.getToken(token);
 

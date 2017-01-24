@@ -1,9 +1,12 @@
 package com.github.sasd97.models.request;
 
+import com.github.sasd97.errors.IllegalArgumentError;
+import com.github.sasd97.services.ValidationService;
+
 /**
  * Created by Alexadner Dadukin on 1/2/2017.
  */
-public class NewsRequestModel {
+public class NewsRequestModel extends ValidationService {
 
     private String title;
     private String description;
@@ -22,6 +25,12 @@ public class NewsRequestModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public void validate() {
+        if (title == null) throw new IllegalArgumentError("title");
+        if (description == null) throw new IllegalArgumentError("description");
     }
 
     @Override

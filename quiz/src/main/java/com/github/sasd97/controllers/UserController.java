@@ -53,11 +53,12 @@ public class UserController {
     }
 
     @RequestMapping(value = EDIT,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_JSON_VALUE},
             method = RequestMethod.POST)
     public BaseResponseModel<UserModel> editUser(@PathVariable(USER_ID) Long userId,
                                                  @RequestParam(ACCESS_TOKEN) String accessToken,
-                                                 @RequestBody UserRequestModel userRequestModel) {
+                                                 @ModelAttribute UserRequestModel userRequestModel) {
         if (!tokenUtils.withToken(accessToken, userId)) throw new NotAuthorizedError();
         userRepository.editUser(userId, userRequestModel.getNickname(), userRequestModel.getAvatarUrl());
         return new BaseResponseModel<>(userRepository.findOne(userId)).success();

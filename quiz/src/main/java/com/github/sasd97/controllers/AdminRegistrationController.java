@@ -11,10 +11,7 @@ import com.github.sasd97.repositories.UserRepository;
 import com.github.sasd97.services.AdminSecretService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -79,6 +76,7 @@ public class AdminRegistrationController {
         return new BaseResponseModel<>(admin).success();
     }
 
+    @CrossOrigin
     @RequestMapping(value = AUTHORIZE,
     produces = { MediaType.APPLICATION_JSON_VALUE },
     method = RequestMethod.GET)

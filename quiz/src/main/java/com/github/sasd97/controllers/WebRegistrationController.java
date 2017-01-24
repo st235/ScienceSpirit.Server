@@ -57,7 +57,7 @@ public class WebRegistrationController {
         final DeferredResult<BaseResponseModel<?>> asyncTask = new DeferredResult<>();
 
         if (code.equalsIgnoreCase("")) {
-            asyncTask.setErrorResult(new IllegalArgumentError());
+            asyncTask.setErrorResult(new IllegalArgumentError("code"));
             return asyncTask;
         }
 
